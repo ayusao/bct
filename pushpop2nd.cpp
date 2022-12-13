@@ -5,15 +5,14 @@ template <class T>
 class stackc{
 private:
     int top, stacksize;
-    int* stk;
+    T* stk;
 public:
     stackc()
     {
         top = -1;
         stacksize=10;
-        stk = new int[stacksize];
+        stk = new T[stacksize];
     }
-
     bool Isempty()
     {
         /*if (top==-1)
@@ -26,17 +25,19 @@ public:
     {
         return (top == stacksize-1);
     }
-    void push (T item)
+    bool push (T item)
+{
+    if (top == stacksize- 1)
+        // throw ("Stack Overflow.\n");
+        cout << "Stack Overflow\n";
+    else
     {
-        if (top == stacksize- 1)
-            //throw ("Stack Overflow.\n");
-            cout << "Stack Overflow\n";
-        else
-        {
-            top++;
-            stk[top]= item;
-        }
+        top++;
+        stk[top]= item;
+        return true;
     }
+}
+
     T pop()
     {
         if (Isempty()== true)
@@ -45,16 +46,19 @@ public:
         else
         {
             cout << "Popped element is: " << stk[top]<<endl;
-            top--;
+            return stk[top--];
         }
     }
-    T display()
+
+bool display()
+{
+    for (int i=0; i<=top; i++)
     {
-        for (int i=0; i<=top; i++)
-        {
-            cout << "Element: "<< stk[i] <<endl;
-        }
+        cout << "Element: "<< stk[i] <<endl;
     }
+    return true;
+}
+
 
 };
 int main()
