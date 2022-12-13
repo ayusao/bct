@@ -1,17 +1,19 @@
 #include<iostream>
 using namespace std;
 
-class stackc
-{
+template <class T>
+class stackc{
 private:
-    int stk[9];
-    int top, maxsize;
+    int top, stacksize;
+    int* stk;
 public:
     stackc()
     {
         top = -1;
-        maxsize = 10;
+        stacksize=10;
+        stk = new int[stacksize];
     }
+
     bool Isempty()
     {
         /*if (top==-1)
@@ -20,40 +22,44 @@ public:
             return false;*/
             return (top == -1);
     }
-
-
-    void push(int item)
+    bool Isfull()
     {
-        if (top == maxsize - 1)
-            cout << "Stack Overflow."<<endl;
+        return (top == stacksize-1);
+    }
+    void push (T item)
+    {
+        if (top == stacksize- 1)
+            //throw ("Stack Overflow.\n");
+            cout << "Stack Overflow\n";
         else
         {
             top++;
             stk[top]= item;
         }
     }
-    void pop()
+    T pop()
     {
         if (Isempty()== true)
-            cout<< "Stack Underflow"<<endl;
+            //throw ("Stack Underflow\n");
+            cout << "Stack Underflow\n";
         else
         {
-
             cout << "Popped element is: " << stk[top]<<endl;
             top--;
         }
     }
-    void display()
+    T display()
     {
         for (int i=0; i<=top; i++)
         {
             cout << "Element: "<< stk[i] <<endl;
         }
     }
+
 };
 int main()
 {
-    stackc mystack;
+    stackc<int> mystack;
     mystack.push(44);
     mystack.push(256);
     mystack.push(86);
@@ -61,5 +67,4 @@ int main()
     mystack.push(2);
     mystack.pop();
     mystack.display();
-
 }
