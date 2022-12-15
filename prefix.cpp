@@ -107,8 +107,11 @@ string toprefix(string infix)
         //condition for prefix
         if (infix[i]== '(')
             infix[i] = ')';
-        if (infix[i]== ')')
-            infix[i] = '('
+        else if (infix[i]== ')')
+            infix[i] = '(';
+    }
+    for (int i=0; i<infix.length(); i++)
+    {
         //if it is an operand
         if (infix[i] >= 'a' && infix[i] <= 'z' || infix[i] >= 'A' && infix[i]<= 'Z')
         {
@@ -127,12 +130,11 @@ string toprefix(string infix)
             {
                 prefix += s.givetop();
                 s.pop();
-                
+
             }
             if (s.givetop() == '(')
                 {
                     s.pop();
-                    
                 }
         }
         //if operator
@@ -151,8 +153,8 @@ string toprefix(string infix)
                 else if ((priority(infix[i])== priority(s.givetop()))&&(infix[i]== '^'))
                 {
                     s.push(infix[i]);
-                } 
-                else 
+                }
+                else
                 {
                     while((!s.Isempty())&&(priority(infix[i])<= priority(s.givetop())))
                     {
@@ -161,9 +163,8 @@ string toprefix(string infix)
                     }
                     s.push(infix[i]);
                 }
-            }          
+            }
         }
-        
     }
     while(!s.Isempty())
     {
