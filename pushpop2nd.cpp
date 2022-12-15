@@ -7,10 +7,10 @@ private:
     int top, stacksize;
     T* stk;
 public:
-    stackc()
+    stackc(int size_ofstack)
     {
         top = -1;
-        stacksize=10;
+        stacksize=size_ofstack;
         stk = new T[stacksize];
     }
     bool Isempty()
@@ -27,9 +27,11 @@ public:
     }
     bool push (T item)
 {
-    if (top == stacksize- 1)
-        // throw ("Stack Overflow.\n");
+    if (Isfull())
+    {
         cout << "Stack Overflow\n";
+        return false;
+    }
     else
     {
         top++;
@@ -37,10 +39,9 @@ public:
         return true;
     }
 }
-
     T pop()
     {
-        if (Isempty()== true)
+        if (Isempty()) // Isempty()==true
             //throw ("Stack Underflow\n");
             cout << "Stack Underflow\n";
         else
@@ -58,17 +59,22 @@ bool display()
     }
     return true;
 }
-
+    int sizestk() //not necessary though
+        {
+            return(top+1);
+        }
 
 };
 int main()
 {
-    stackc<int> mystack;
+    stackc<int> mystack(5);
+    std::cout<< "Size of stack: "<< mystack.sizestk()<<endl;
     mystack.push(44);
     mystack.push(256);
     mystack.push(86);
 
     mystack.push(2);
     mystack.pop();
+    std::cout<< "Size of stack: "<< mystack.sizestk()<<endl;
     mystack.display();
 }
