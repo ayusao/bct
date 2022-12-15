@@ -3,7 +3,7 @@
 
 using namespace std;
 
-const int stacksize = 1000;
+const int stacksize = 100;
 template <class T>
 class stackc
 {
@@ -29,7 +29,7 @@ class stackc
         {
             if (Isfull())
             {
-                cout<< "Stack overflow.\n";
+                //cout<< "Stack overflow.\n";
                 return false;
             }
             else
@@ -44,9 +44,9 @@ class stackc
             if (Isempty())
             {
                 //cout << "Stack Underflow.\n";
-                return 0;
+                return -1;
             }
-            
+            else
             {
                 // T item = stk[top];
                 // top--;
@@ -61,7 +61,7 @@ class stackc
                 cout << "Element: "<< stk[i] <<endl;
             }
         }
-        int givetop()
+        char givetop()
         {
             if (Isempty())
                 return -1;
@@ -88,10 +88,10 @@ char priority(char op)
     else
         return -1;
 }
-string topostfix(string infix)
+string topostfix(stackc<char> s, string infix)
 {
     string postfix;
-    stackc<char> s;
+    //stackc<char> s;
 
     for (int i=0; i<infix.length(); i++)
     {
@@ -111,14 +111,14 @@ string topostfix(string infix)
             //while((!s.Isempty()) && (s.givetop() != '('))
             while((!s.Isempty())&& (s.givetop()!= '('))
             {
-                postfix += s.pop();
+                postfix += s.givetop();
                 s.pop();
                 
             }
             if (s.givetop() == '(')
                 {
                     s.pop();
-                    break;
+                    
                 }
         }
         //if operator
@@ -134,15 +134,15 @@ string topostfix(string infix)
                 {
                     s.push(infix[i]);
                 }
-                else if ((priority(infix[i])==priority(s.givetop())) && infix[i]== '^')
+                else if ((priority(infix[i])== priority(s.givetop()))&&(infix[i]== '^'))
                 {
                     s.push(infix[i]);
                 } 
                 else 
                 {
-                    while((!s.Isempty()) && (priority(infix[i])<= priority(s.givetop())))
+                    while((!s.Isempty())&&(priority(infix[i])<= priority(s.givetop())))
                     {
-                        postfix += s.pop();
+                        postfix += s.givetop();
                         s.pop();
                     }
                     s.push(infix[i]);
@@ -153,7 +153,7 @@ string topostfix(string infix)
     }
     while(!s.Isempty())
     {
-        postfix += s.pop();
+        postfix += s.givetop();
         s.pop();
     }
     return postfix;
@@ -161,9 +161,10 @@ string topostfix(string infix)
 int main()
 {
     string infix;
+    stackc<char> s;
     cout << "Enter your infix expression: ";
     cin >> infix;
 
-    cout <<"Postfix expresssion= "<< topostfix(infix);
+    cout <<"Postfix expresssion= "<< topostfix(s, infix);
     return 0;
 }
