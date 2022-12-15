@@ -1,9 +1,9 @@
 #include<iostream>
 #include<string>
-#include<cstdlib>
+
 using namespace std;
 
-const int stacksize = 20;
+const int stacksize = 1000;
 template <class T>
 class stackc
 {
@@ -17,8 +17,7 @@ class stackc
         }
         bool Isfull()
         {
-            if (top == stacksize)
-                return true;
+            return (top == stacksize);
         }
         bool Isempty()
         {
@@ -44,14 +43,16 @@ class stackc
         {
             if (Isempty())
             {
-                cout << "Stack Underflow.\n";
+                //cout << "Stack Underflow.\n";
+                return 0;
             }
-            else
+            
             {
                 // T item = stk[top];
                 // top--;
                 return stk[top--];
             }
+            //return stk[top--];
         }
         void display()
         {
@@ -63,7 +64,7 @@ class stackc
         int givetop()
         {
             if (Isempty())
-                return '\0';
+                return -1;
             else
                 return stk[top];
         }
@@ -76,15 +77,17 @@ bool Isoperator(char c)
 {
     return (c == '+' || c == '-' || c == '*' || c == '/' || c == '^');
 }
-// char priority(int op)
-// {
-//     if (op == "+" || op == "-")
-//         return 1;
-//     else if (op == "*" || op == "/")
-//         return 2;
-//     else if(op == "^")
-//         return 3;
-// }
+char priority(char op)
+{
+    if (op == '+' || op == '-')
+        return 1;
+    else if (op == '*' || op == '/')
+        return 2;
+    else if(op == '^')
+        return 3;
+    else
+        return -1;
+}
 string topostfix(string infix)
 {
     string postfix;
@@ -102,31 +105,56 @@ string topostfix(string infix)
         {
             s.push(infix[i]);
         }
-        //if operator
-        // else if (Isoperator(infix[i]))
-        // {
-        //     if (priority(infix[i])> priority(s.givetop()))
-        //     {
-        //         postfix += s.pop();
-        //         s.pop();
-        //     }
-        //     else
-        //     {
-        //         s.push(infix[i]);
-        //     }
-
-        // }
         //right parenthesis
         else if (infix[i] == ')')
         {
-            while(!s.Isempty())
+            //while((!s.Isempty()) && (s.givetop() != '('))
+            while((!s.Isempty())&& (s.givetop()!= '('))
             {
                 postfix += s.pop();
                 s.pop();
-                //if (postfix == '(')
-                  //  break;
+                
             }
+            if (s.givetop() == '(')
+                {
+                    s.pop();
+                    break;
+                }
         }
+        //if operator
+        else if (Isoperator(infix[i]))
+        {
+            if (s.Isempty())
+            {
+                s.push(infix[i]);
+            }
+            else
+            {
+                if (priority(infix[i])> priority(s.givetop()))
+                {
+                    s.push(infix[i]);
+                }
+                else if ((priority(infix[i])==priority(s.givetop())) && infix[i]== '^')
+                {
+                    s.push(infix[i]);
+                } 
+                else 
+                {
+                    while((!s.Isempty()) && (priority(infix[i])<= priority(s.givetop())))
+                    {
+                        postfix += s.pop();
+                        s.pop();
+                    }
+                    s.push(infix[i]);
+                }
+            }          
+        }
+        
+    }
+    while(!s.Isempty())
+    {
+        postfix += s.pop();
+        s.pop();
     }
     return postfix;
 }
