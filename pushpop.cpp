@@ -38,7 +38,6 @@ public:
             cout<< "Stack Underflow"<<endl;
         else
         {
-
             cout << "Popped element is: " << stk[top]<<endl;
             top--;
         }
