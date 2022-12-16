@@ -13,8 +13,8 @@ class stackc
         int top;
         T stk[stacksize];
     public:
-        class full{}; //exception class for fullstack
-        class empty{};
+        class Full{}; //exception class for fullstack
+        class Empty{};
         stackc()
         {
             top = -1;
@@ -29,20 +29,18 @@ class stackc
             //     return true;
             return (top == -1);
         }
-        bool push(T item)
+        void push(T item)
         {
             if (Isfull())
             {
                 //cout<< "Stack overflow.\n";
                 //throw ("Stack overflow.\n");
-                throw full();
-                return false;
+                throw Full();
             }
             else
             {
                 top++;
                 stk[top]= item;
-                return true;
             }
         }
         T pop()
@@ -52,13 +50,13 @@ class stackc
                 //cout << "Stack Underflow.\n";
                 // return -1;
                 //throw ("stack underflow\n");
-                throw empty();
+                throw Empty();
             }
             else
             {
-                // T item = stk[top];
-                // top--;
-                return stk[top--];
+                T item = stk[top];
+                top--;
+                return item;
             }
         }
         void display()
@@ -71,7 +69,7 @@ class stackc
         T givetop()
         {
             if (Isempty())
-                throw empty();
+                throw Empty();
                 //throw ("stack underflow");
             else
                 return stk[top];
