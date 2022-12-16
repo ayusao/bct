@@ -84,18 +84,18 @@ bool checkpar(string exp)
     stackc<char> s;
     for (int i=0; i< exp.length(); i++)
     {
-        if (exp[i]== '(')
+        if (exp[i]== '(' || exp[i]=='{' || exp[i]=='[' )
         {
             s.push(exp[i]);
         }
-        else if (exp[i]== ')')
+        else if (exp[i]== ')' || exp[i]=='}' || exp[i]==']' )
         {
             if (s.Isempty())
                 return false;
-            else if(!s.Isempty())
-            {
-                s.pop();
-            }
+            else if ((s.givetop()=='(' &&exp[i]== ')')|| (s.givetop()== '{' && exp[i]== '}') ||(s.givetop()=='[' && exp[i]== ']'))
+                {
+                    s.pop();
+                }
         }
 
     }
