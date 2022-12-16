@@ -13,6 +13,8 @@ class stackc
         int top;
         T stk[stacksize];
     public:
+        class full{}; //exception class for fullstack
+        class empty{};
         stackc()
         {
             top = -1;
@@ -32,7 +34,8 @@ class stackc
             if (Isfull())
             {
                 //cout<< "Stack overflow.\n";
-                throw ("Stack overflow.\n");
+                //throw ("Stack overflow.\n");
+                throw full();
                 return false;
             }
             else
@@ -48,7 +51,8 @@ class stackc
             {
                 //cout << "Stack Underflow.\n";
                 // return -1;
-                throw ("stack underflow\n");
+                //throw ("stack underflow\n");
+                throw empty();
             }
             else
             {
@@ -67,7 +71,8 @@ class stackc
         T givetop()
         {
             if (Isempty())
-                throw ("stack underflow");
+                throw empty();
+                //throw ("stack underflow");
             else
                 return stk[top];
         }
@@ -136,8 +141,16 @@ int main()
     cin >> postfix;
     cout << "After evaluation, the value is: "<< evaluate(postfix);
     }
-    catch (const char* err) {
-    cout << err;
+    // catch (const char* err) {
+    // cout << err;
+    // }
+    catch (stackc::full)
+    {
+        cout << "Exception: Stack Overflow.\n";
+    }
+    catch(stackc::empty)
+    {
+        cout<< "Exception: Stack Underflow\n";
     }
     return 0;
 }
