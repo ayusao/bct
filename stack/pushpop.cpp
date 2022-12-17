@@ -4,13 +4,14 @@ using namespace std;
 class stackc
 {
 private:
-    int stk[9];
     int top, maxsize;
+    int stk[2];
+
 public:
     stackc()
     {
         top = -1;
-        maxsize = 10;
+        maxsize = 3;
     }
     bool Isempty()
     {
