@@ -100,19 +100,17 @@ int main()
     {
         dq.enqrear(26);
         dq.enqrear(68);
-        dq.deqfront();
-        dq.enqrear(100);
+        dq.enqfront(12);
         dq.enqfront(34);
-        dq.display();
         dq.deqrear();
+        dq.display();       
         dq.enqrear(90);
         dq.deqfront();
-        dq.enqfront(99);
         dq.display();
 	}
     catch(dqueue<int>::Full)
-        cout << "Exception: Stack Overflow.\n";
+    {    cout << "Exception: Stack Overflow.\n";}
     catch(dqueue<int>::Empty)
-        cout << "Exception: Stack Underflow.\n";
+    {    cout << "Exception: Stack Underflow.\n";}
     return 0;
 }
