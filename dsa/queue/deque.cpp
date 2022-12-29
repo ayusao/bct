@@ -32,7 +32,6 @@ public:
         {
         	front =0; 
         	rear=0;
-        	//q[rear]= item;
 		}
         else if (rear == stacksize -1)
             rear =0;
@@ -65,8 +64,7 @@ public:
         else if (front == stacksize-1)
             front =0;
         else
-            front++;
-        
+            front++;        
         cout<<"Deleted: "<< item<<endl;
     }
     void deqrear()
@@ -82,12 +80,9 @@ public:
         else if (rear == 0)
             rear = stacksize -1;
         else
-            rear--;
-            
-        
+            rear--;        
         cout<<"Deleted: "<< item<<endl;
     }
-
     void display()
     {
         int i= front;
@@ -97,14 +92,12 @@ public:
       }
       cout <<q[i]<< endl;
     }
-
 };
 int main()
 {
     dqueue<int> dq;
     try
     {
-
         dq.enqrear(26);
         dq.enqrear(68);
         dq.deqfront();
@@ -118,12 +111,8 @@ int main()
         dq.display();
 	}
     catch(dqueue<int>::Full)
-    {
         cout << "Exception: Stack Overflow.\n";
-    }
     catch(dqueue<int>::Empty)
-    {
         cout << "Exception: Stack Underflow.\n";
-    }
     return 0;
 }

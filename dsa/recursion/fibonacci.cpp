@@ -5,17 +5,23 @@ using namespace std;
 
 int fibonacci(int n)
 {
-    if (n==0 || n==1)
-        return n;
-    else
+    int a=0;
+    if (n==1)
+        return a;
+    else if (n==2)
+        return 1;
+    else   
         return (fibonacci(n-1)+fibonacci(n-2));
 }
 int fibo_tail(int n, int a, int b)
 {    
-    if (n==0 || n==1)
+    if (n==1)
+        return a;
+    else if(n==2)
         return b;
-    else
+    else    
         return fibo_tail(n-1, b, a+b);
+        
 }
 int main()
 {

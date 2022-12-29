@@ -1,12 +1,12 @@
 //FIND THE FACTORIAL FOR GIVEN NUMBER ‘N’.
 #include<iostream>
 
-int nontail(int n)
+int fact(int n)
 {
     if (n==0)
         return 1;
     else
-        return (n*nontail(n-1));
+        return (n*fact(n-1));
 }
 int tail(int n, int res)
     {
@@ -21,6 +21,6 @@ int main()
     std::cout << "Enter a number: ";
     std::cin >>  num;
     std::cout << "Tail recursion: "<< tail(num, 1)<<std::endl;
-    std::cout << "Non-tail recursion: "<< nontail(num);
+    std::cout << "Non-tail recursion: "<< fact(num);
     return 0;
 }

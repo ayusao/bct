@@ -142,11 +142,11 @@ int main()
     // catch (const char* err) {
     // cout << err;
     // }
-    catch (stackc::full)
+    catch (stackc<int>::Full)
     {
         cout << "Exception: Stack Overflow.\n";
     }
-    catch(stackc::empty)
+    catch(stackc<int>::Empty)
     {
         cout<< "Exception: Stack Underflow\n";
     }

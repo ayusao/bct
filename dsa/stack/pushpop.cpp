@@ -56,10 +56,9 @@ int main()
     stackc mystack;
     mystack.push(44);
     mystack.push(256);
-    mystack.push(86);
-
-    mystack.push(2);
     mystack.pop();
+    mystack.push(2);
+    
     mystack.display();
 
 }

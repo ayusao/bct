@@ -247,24 +247,60 @@ string toprefix(string infix)
     }
     return reversestr(prefix);
 }
+bool checkpar(string exp)
+{
+    stackc<char> s;
+    for (int i=0; i< exp.length(); i++)
+    {
+        if (exp[i]== '(' || exp[i]=='{' || exp[i]=='[' )
+        {
+            s.push(exp[i]);
+        }
+        else if (exp[i]== ')' || exp[i]=='}' || exp[i]==']' )
+        {
+            if (s.Isempty())
+                return false;
+            else if ((s.givetop()=='(' &&exp[i]== ')')|| (s.givetop()== '{' && exp[i]== '}') ||(s.givetop()=='[' && exp[i]== ']'))
+                {
+                    s.pop();
+                }
+        }
+
+    }
+    if (s.Isempty())
+    {
+        return true;
+    }
+    else
+        return false;
+}
+
 int main()
 {
     try
     {
-        string infix;
+        string infix, postfix;
         cout << "Enter your infix expression: ";
         cin >> infix;
         cout <<"Postfix expresssion= "<< topostfix(infix)<<endl;
         cout<< "Prefix expression= "<<toprefix(infix)<<endl;
-    }
-    catch (stackc<char>::Full)
-    {
-        cout << "Exception: Stack Overflow.\n";
-    }
-    catch (stackc<char>::Empty)
-    {
-        cout <<"Exception: Stack Underflow.\n ";
-    }
+        
     
+            if (checkpar(infix))
+        {
+            cout << "Balanced parenthesis.";
+        }
+        else
+            {cout << "Unpaired parenthesis.";}
+        }  
+        catch (stackc<char>::Full)
+        {
+            cout << "Exception: Stack Overflow.\n";
+        }
+        catch (stackc<char>::Empty)
+        {
+            cout <<"Exception: Stack Underflow.\n ";
+        }
+
     return 0;
 }

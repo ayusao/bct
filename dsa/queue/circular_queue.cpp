@@ -64,15 +64,15 @@ public:
         {
             for (int i=front; i<=rear; i++)
             {
-                cout << q[i] << endl;
+                cout << q[i] << " ";
             }
         }
         else
         {
             for (int i=front; i<stacksize; i++)
-                cout << q[i] << endl;
+                cout << q[i] << " ";
             for (int i=0; i<=rear; i++)
-                cout << q[i] << endl;
+                cout << q[i] << " ";
         }
     }
 };
