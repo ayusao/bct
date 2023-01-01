@@ -9,9 +9,18 @@ struct node{
 node* createnode(int x)
 {
     node* ptr = new node;
-    ptr->data= x;
-    ptr->next= NULL;
-    return ptr;
+    if (ptr==NULL)
+    {
+        cout<<"No memory available.";
+        exit(1);
+    }
+    else
+    {
+        ptr->data= x;
+        ptr->next= NULL;
+        return ptr;
+    }
+    
 }
 class nodecls{    
 public:
@@ -24,9 +33,9 @@ public:
 void insertathead(int val)
 {
     ptr = createnode(val);
-    if (start==NULL)
-        start= ptr;
-    else
+    // if (start==NULL)
+    //     start= ptr;
+    // else
     {
         ptr->next= start;
         start = ptr;
@@ -108,6 +117,11 @@ void deleteend()
 }
 void deleteafter(int val)
 {
+    if (start==NULL)
+    {
+        cout<<"Empty list.";
+        exit(1);
+    }
     temp= start;
     while (temp->data!=val)
     {
