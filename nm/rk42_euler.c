@@ -2,7 +2,7 @@
 #include<stdio.h>
 float f(float x, float y)
 {
-    return (x+y);
+    return (x*x+y);
 }
 void euler(float x0, float y0, float xn, float h)
 {
@@ -11,7 +11,7 @@ void euler(float x0, float y0, float xn, float h)
     printf("\nx\t\ty\n");
     for (x0; x0<=xn; x0+=h)
     {
-        printf("%.4f\t\t%.4f\n", x0, y0);
+        printf("%.2f\t\t%.4f\n", x0, y0);
         y= y0+ f(x0,y0)*h;
         y0 = y;
     }
@@ -23,7 +23,7 @@ void rk2(float x0, float y0, float xn, float h)
     printf("\nx\t\ty\n");
     for (x0; x0<=xn; x0+=h)
     {
-        printf("%.4f\t\t%.4f\n", x0, y0);
+        printf("%.2f\t\t%.4f\n", x0, y0);
         k1= h*f(x0, y0);
         k2= h*f(x0+h/2, y0+k1/2);
         k= (k1+k2)/2;
@@ -38,7 +38,7 @@ void rk4(float x0, float y0, float xn, float h)
     printf("\nx\t\ty\n");
     for (x0; x0<=xn; x0+=h)
     {
-        printf("%.4f\t\t%.4f\n", x0, y0);
+        printf("%.2f\t\t%.4f\n", x0, y0);
         k1= h*f(x0, y0);
         k2= h*f(x0+h/2, y0+k1/2);
         k3= h*f(x0+h/2, y0+k2/2);
@@ -53,7 +53,7 @@ int main()
     float x0, y0, xn, n, h;
     
     printf("Enter x0, y0, xn and n respectively: ");
-    scanf("%f %f %f %f", &x0, &y0, &xn, &n);
+    scanf("%f %f%f%f", &x0, &y0, &xn, &n);
     h= (xn-x0)/n;
     //by euler
     euler(x0, y0,xn, h);
