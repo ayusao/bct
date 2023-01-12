@@ -12,20 +12,18 @@ node* createnode(int x)
     if (ptr==NULL)
     {
         cout<<"No memory available.";
+        //return NULL;
         exit(1);
     }
-    else
-    {
-        ptr->data= x;
-        ptr->next= NULL;
-        return ptr;
-    }
-    
+    ptr->data= x;
+    ptr->next= NULL;
+    return ptr;
+
 }
-class nodecls{    
+class sllist{
 public:
     node *start, *ptr, *temp;
-    nodecls()
+    sllist()
     {
         start=NULL;
     }
@@ -36,10 +34,8 @@ void insertathead(int val)
     // if (start==NULL)
     //     start= ptr;
     // else
-    {
         ptr->next= start;
         start = ptr;
-    }
 }
 //insertion at the end
 void insertatend(int val)
@@ -47,7 +43,7 @@ void insertatend(int val)
     ptr = createnode(val);
     if (start==NULL) //if it is empty
     {
-        start= ptr; 
+        start= ptr;
         return;
     }
     temp=start;
@@ -59,10 +55,16 @@ void insertatend(int val)
     ptr->next= NULL;
 }
 //after specific node
-void insertafter(int x, int y)
+void insertafter(int val, int y)
 {
-   node* n= createnode(x);
+   node* n= createnode(val);
    temp = start;
+   if (start==NULL) //if it is empty
+    {
+       cout << "Empty list" << endl;
+      start= n;
+      return;
+   }
    while(temp->data!=y)
    {
         temp= temp->next;
@@ -74,12 +76,19 @@ void insertafter(int x, int y)
 void insertbefore(int x, int y)
 {
     node* n = createnode(x);
+    if (start==NULL) //if it is empty
+    {
+       cout << "Empty list" << endl;
+       start= n;
+       return;
+   }
     temp= start;
+
     while(temp->data!=y)
     {
         ptr = temp;
         temp= temp->next;
-    } 
+    }
     ptr->next = n;
     n->next= temp;
 }
@@ -89,31 +98,30 @@ void deletehead()
     if (start==NULL)
     {
         cout<<"Empty list.";
+        exit(1);
     }
-    else
-    {
+
         temp = start;
         start= start->next;
+        cout << "Deleted item: "<<temp->data<<endl;
         delete temp;
-    }
 }
 void deleteend()
 {
     if (start==NULL)
     {
         cout<<"Empty list.";
+        exit(1);
     }
-    else
+    temp = start;
+    while (temp->next!=NULL)
     {
-        temp = start;
-        while (temp->next!=NULL)
-        {
-            ptr = temp;
-            temp= temp->next;
-        }
-        ptr->next = NULL;
-        delete temp;
+        ptr = temp;
+        temp= temp->next;
     }
+    ptr->next = NULL;
+    cout << "Deleted item: "<<temp->data<<endl;
+    delete temp;
 }
 void deleteafter(int val)
 {
@@ -129,6 +137,7 @@ void deleteafter(int val)
         ptr= temp->next;
     }
     temp->next = ptr->next;
+    cout << "Deleted item: "<<ptr->data<<endl;
     delete ptr;
 
 }
@@ -145,16 +154,16 @@ void display()
 };
 int main()
 {
-    nodecls ll;
-    ll.insertathead(1);
+    sllist ll;
     ll.insertathead(15);
-    ll.insertafter(5,1);
-    ll.insertbefore(12,1);
-    ll.insertafter(2,1);
+    ll.insertathead(1);
+    ll.insertafter(5,15);
+    ll.insertbefore(12,15);
     ll.insertatend(4);
     ll.display();
     ll.deletehead();
     ll.deleteend();
-    ll.deleteafter(1);
+    ll.deleteafter(12);
     ll.display();
+    return 0;
 }
