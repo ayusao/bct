@@ -22,7 +22,7 @@ public:
     }
     bool isempty()
     {
-        return (front > rear);
+        return (front == rear);
     }
     void enqueue(T item)
     {
@@ -41,7 +41,7 @@ public:
             throw Empty();
         else
         {
-            return q[front++];
+            return q[front++]; //returns current value then is incremented
         }
     }
     void display()

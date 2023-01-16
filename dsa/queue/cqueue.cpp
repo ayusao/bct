@@ -13,70 +13,47 @@ public:
     class Empty{};
     cqueue()
     {
-        front =-1;
-        rear=-1;
+        front =0;
+        rear=0;
     }
     bool isfull()
     {
-        return (front==0 && rear == stacksize-1);
+        return ((rear+1)%stacksize == front);
     }
     bool isempty()
     {
-        return(front == -1);
+        return(rear==front);
     }
     void enq(T item)
     {
         if (isfull())
             throw Full();
-        else if (front==-1 && rear==-1)
-        {
-            front=0; rear=0;
-        }
-        else if (rear == stacksize-1 && front!=0)
-            rear=0;
-        else
-            rear++;
-        q[rear]=item;
+        q[rear]= item;
+        rear= (rear+1)%stacksize;
+            
     }
-    T deq()
+    void deq()
     {
-        if (front==-1)
+        if (isempty())
             throw Empty();
+    
         T item = q[front];
-        if (front==rear)
-        {
-            front = -1;
-            rear =-1;
-
-        }
-        else if (front == stacksize-1)
-            front =0;
-        else
-            front++;
+        front = (front+1)%stacksize;
+        
         cout << "Dequeued element: "<<item<<endl;
-        return item;
     }
 
     void display()
     {
         if (isempty())
             throw Empty();
-        else if (front <= rear)
+        for (int i= front; i!=rear; i=(i+1)%stacksize)
         {
-            for (int i=front; i<=rear; i++)
-            {
-                cout << q[i] << " ";
-            }
+            cout << q[i]<< " "<<endl;
         }
-        else
-        {
-            for (int i=front; i<stacksize; i++)
-                cout << q[i] << " ";
-            for (int i=0; i<=rear; i++)
-                cout << q[i] << " ";
-        }
-        cout<<endl;
+        cout << endl;
     }
+    
 };
 int main()
 {
@@ -84,7 +61,6 @@ int main()
     try{
         cq.enq(256);
         cq.enq(545);
-        cq.enq(53);
         cq.display();
         cq.deq();
         cq.deq();
