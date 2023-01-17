@@ -5,17 +5,17 @@ int main()
 {
     float a[20][20];
     int i,j,k,n;
-    float xi, temp;
+    float temp;
     printf("Enter the order of matrix: ");
     scanf("%d", &n);
     printf("Enter the elements of matrix: ");
     for (i=1; i<=n; i++)
     {
-        for (j=1; j<=n; j++) 
+        for (j=1; j<=n; j++)
         {
             scanf("%f", &a[i][j]);
         }
-    } 
+    }
     //forming augmented matrix
     for (i=1; i<=n; i++)
     {
@@ -47,24 +47,32 @@ int main()
             if (i==j)
                 continue;
             temp = a[i][j]/a[j][j];
-            for (k=j; k<=n+1; k++)
+            for (k=j; k<=2*n; k++)
             {
                 a[i][k]= a[i][k]-(temp*a[j][k]);
             }
         }
     }
+    for(i=1; i<=n; i++)
+    {
+        printf("\n");
+        for (j=1; j<=2*n; j++)
+            printf("%.2f\t", a[i][j]);
+    }
     for (i=1; i<=n; i++)
     {
         temp = a[i][i];
         for (j=1; j<=2*n; j++)
-            a[i][j]= a[i][j]/temp;
+        {
+             a[i][j]= a[i][j]/temp;
+        }
     }
     printf("\nThe inverse of matrix is: \n");
     for(i=1; i<=n; i++)
     {
         printf("\n");
-        for (j=n+1; j<=2*n; j++)
-            printf("%.2f\t", a[i][j]);
+        for (j=1; j<=2*n; j++)
+        {   printf("%.2f\t", a[i][j]);}
     }
     return 0;
 }
