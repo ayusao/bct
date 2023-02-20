@@ -50,17 +50,8 @@ int main()
             {
                 e= d[i];
             }
-        }
-        for (i=0; i<n; i++)
-        {
-            
-        }
-        for (i=0; i<n; i++)
-        {
             x[i] = y[i];
         }
-
-
     }while(e>0.00005);
     printf("\nLargest eigen value: %.3f\nEigen vector is:\n", l);
     for(i=0; i<n; i++)
