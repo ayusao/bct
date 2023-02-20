@@ -1,0 +1,30 @@
+TITLE To read string from user and display it on another line
+	.MODEL SMALL
+	.STACK 32
+	.DATA
+STRING LABEL BYTE
+MAXLEN DB 20
+ACTLEN DB ?
+KBINPUT DB 20 DUP('$')
+	.CODE
+MAIN PROC
+	MOV AX, @DATA
+	MOV DS, AX
+	
+	MOV AH, 0AH
+	LEA DX, STRING
+	INT 21H
+	;;YESSSS the string is entered, now lets print it 
+	MOV AH, 02H
+	MOV DL, 0DH
+	INT 21H
+	MOV DL, 0AH
+	INT 21H
+	LEA DX, STRING+2
+	MOV AH, 09H
+	INT 21H
+	
+	MOV AX, 4C00H
+	INT 21H
+MAIN ENDP
+	END MAIN
