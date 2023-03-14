@@ -1,0 +1,46 @@
+TITLE To find the square root of a number
+.MODEL SMALL
+	.STACK 32
+	.DATA
+num DB 49
+sqrt DB ?
+	.CODE
+MAIN PROC FAR
+	MOV AX, @DATA
+	MOV DS, AX
+ 
+	MOV AL, NUM
+	XOR BL, BL
+	MOV BL, 01H
+	MOV CL, 0
+	
+BACK:	INC CL
+	SUB AL, BL
+	JZ OVER
+	ADD BL, 02H
+	JMP BACK
+	
+OVER:	MOV SQRT, CL
+	MOV AH, 00
+	MOV AL, CL
+	;;DISPLAYING IN DECIMAL
+	MOV BX, 10
+	MOV CX, 00
+	
+L1:	MOV DX, 00
+	DIV BX ; quotient in ax, rem in dx
+	PUSH DX
+	INC CX
+	CMP AX, 00
+	JG L1
+	
+	MOV AH, 02H
+DISP:	POP DX
+	OR DX, 30H
+	INT 21H
+	LOOP DISP
+ 
+	MOV AH, 04CH
+	INT 21H
+MAIN ENDP
+	END MAIN
