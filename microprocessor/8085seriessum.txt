@@ -1,0 +1,30 @@
+; Write a program to calculate the sum of following sequence 
+;1×2+2×3+3×4+4×5+ …… up to n terms, where n is an 8-bit number stored at 
+;memory location 9000H. Use subroutine for multiplication. 
+lxi h, 0000h
+MOV L, m
+MVI B, 01H
+MVI C, 02H
+LXI D, 0000H
+BACK:	CALL MUL
+ADD E
+MOV E,A
+JNC SKIP
+INR D
+SKIP: 	INR B
+INR C
+DCR L
+JNZ BACK
+; FOR DISPLAY in output port
+MOV A, E
+OUT 40H
+MOV A, D
+OUT 41H
+HLT
+;MUL
+MUL:	MVI A, 00H
+MOV H, C
+RETURN:	ADD B
+DCR H
+JNZ RETURN 
+RET

@@ -1,0 +1,44 @@
+; A table consists of ten 8-bit data starting at 8050H. Write an 8085 program 
+;to store the sum of odd numbers at 8060H and store sum of even numbers at 8070H.
+; start the program
+	   LXI H,8050H	; data
+	   LXI B, 0000H	; odd
+	   LXI D, 0000H	; even
+
+TOP:	   MOV A,M
+	   ANI 01H
+	   JZ EVEN
+       MOV A,M
+       ADD C
+       mov c, a
+       JNC SKIP
+       INR B
+	   JMP SKIP
+
+EVEN:	  MOV A,M
+		ADD E
+        mov e, a
+        JNC SKIP
+        INR D
+
+SKIP:	INR L
+	   MOV A,L
+	   CPI 59H
+	   JNZ TOP
+       LXI H, 8060H
+       MOV M,C
+       INX H
+       MOV M, B
+       
+       LXI H, 8070H
+       MOV M, E
+       INX H
+       MOV M, D
+       ; for showing in output port
+	   MOV A, E 
+	   ADD C
+	   OUT 40H
+	   MOV A, D
+	   ADD B
+	   OUT 41H
+	   HLT
