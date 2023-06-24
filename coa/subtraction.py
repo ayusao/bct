@@ -14,7 +14,9 @@ def add(a,b):
         result.insert(0, str(sumbits)) #appends at the first
     #end of for loop 
     if carry:
-        result.insert(0, str(carry))     
+        result.insert(0, str(carry)) 
+    # else:
+    #     result.insert(0,'0')    
     return ''.join(result) 
 
 def negation(x):
@@ -35,11 +37,13 @@ def sub(a,b):
     b = add(b,"1") #2's comp
     print("2's comp",b)
     dif= add(a,b)
-    carry = add(a,b)
-    if (carry==0):
-        return add(negation(dif),"1")
-    else: 
+    print("Sum ",dif)
+    carry = int(dif[0])
+    if (carry==1):
         return dif[1:]
+        
+    else: 
+        return add(negation(dif), "1")
 
 
 a=input("Enter the first number: ")
