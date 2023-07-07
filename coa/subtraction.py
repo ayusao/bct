@@ -13,11 +13,8 @@ def add(a,b):
         carry =  (bita + bitb + carry)// 2
         result.insert(0, str(sumbits)) #appends at the first
     #end of for loop 
-    if carry:
-        result.insert(0, str(carry)) 
-    # else:
-    #     result.insert(0,'0')    
-    return ''.join(result) 
+    result = ''.join(result) 
+    return result, carry
 
 def negation(x):
     x = list(x)
@@ -30,24 +27,26 @@ def negation(x):
 
 def sub(a,b):
     n = max(len(a), len(b))
-    a = a.zfill(n)
-    b = b.zfill(n)
+    a = a.zfill(2*n+1)
+    b = b.zfill(2*n+1)
     b = negation(b)
-    print("neg.",b)
-    b = add(b,"1") #2's comp
-    print("2's comp",b)
-    dif= add(a,b)
-    print("Sum ",dif)
-    carry = int(dif[0])
+    #print("neg.",b)
+    b, carry = add(b,"1") #2's comp
+    #print("2's comp",b)
+    dif, carry= add(a,b)
+    #print("Sum ",dif)
     if (carry==1):
         return dif[1:]
         
     else: 
-        return add(negation(dif), "1")
+        dif, carry = add(negation(dif), "1") #2's comp
+        if carry:
+            dif.insert(0, str(carry))
+        return ''.join(dif) 
 
 
 a=input("Enter the first number: ")
 b=input("Enter the second number: ")
 
-print(" Subtraction of 2nd from 1st: ")
+print("Subtraction of 2nd from 1st: ")
 print(sub(a,b))
