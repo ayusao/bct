@@ -41,4 +41,7 @@ SKIP:	INR L
 	   MOV A, D
 	   ADD B
 	   OUT 41H
-	   HLT
+	   jnc skip2
+	   mov a, 01h
+	   out 42h
+skip2:	   HLT
